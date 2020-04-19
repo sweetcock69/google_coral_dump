@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- These are configurations that should exist on Google's 2017 and newer Nexus devices. -->
+<config>
+    <!-- This is meant to be the canonical feature identifying 2017 and newer Nexus devices. -->
+    <feature name="com.google.android.feature.PIXEL_2017_EXPERIENCE" />
+
+    <!-- Allow SCONE JobIntentService & Services to run in background -->
+    <allow-in-power-save package="com.google.android.apps.scone" />
+
+    <!-- Allow Better Bug to take bug report. -->
+    <bugreport-whitelisted package="com.google.android.apps.betterbug" />
+    <bugreport-whitelisted package="com.google.android.apps.internal.betterbug" />
+
+    <!-- Allow Pixel modem service to run in background -->
+    <allow-in-power-save package="com.google.modemservice" />
+
+    <!-- Allow MDS ExperimentService to run in background -->
+    <allow-in-power-save package="com.google.mds" />
+
+    <!-- Hide DocumentsUi Launcher/Downloads intent handling. DocumentsUi
+         PrebootReceiver does not properly hide the launcher in work profile,
+         so we need to include this as well. -->
+    <component-override package="com.google.android.documentsui" >
+        <component class="com.android.documentsui.LauncherActivity" enabled="false" />
+        <component class="com.android.documentsui.ViewDownloadsActivity" enabled="false" />
+    </component-override>
+
+    <!-- ACTION_MANAGE_STORAGE handled by Files by Google -->
+    <component-override package="com.google.android.storagemanager" >
+        <component class="com.android.storagemanager.deletionhelper.DeletionHelperActivity" enabled="false" />
+    </component-override>
+
+    <!-- Make sure photos/video previews are handled by Photos. -->
+    <component-override package="com.google.android.apps.nbu.files" >
+        <component class="com.google.android.apps.nbu.files.gateway.preview.PreviewActivity" enabled="false" />
+    </component-override>
+
+    <component-override package="com.android.settings" >
+        <!-- Display regulatory info in settings. -->
+        <component class=".RegulatoryInfoDisplayActivity" enabled="true" />
+    </component-override>
+</config>
